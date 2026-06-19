@@ -1,22 +1,17 @@
 // pages/api/create-payment-intent.js
 import Stripe from 'stripe';
 
-const stripe = new Stripe('REDACTED_STRIPE_KEY');
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
-export default async (req, res) => {
-  alert(req)
-  alert(res)
+export default async function handler(req, res) {
   if (req.method === 'POST') {
-    const { amount } = req.body;  // The amount should be passed from the frontend
+    const { amount } = req.body;
 
     try {
-      // Create a PaymentIntent with the specified amount
       const paymentIntent = await stripe.paymentIntents.create({
-        amount, // Amount in cents (e.g., $10.00 = 1000 cents)
+        amount,
         currency: 'usd',
       });
-
-      // Return the client secret
       res.status(200).json({ clientSecret: paymentIntent.client_secret });
     } catch (error) {
       res.status(400).json({ error: { message: error.message } });
@@ -25,5 +20,4 @@ export default async (req, res) => {
     res.setHeader('Allow', 'POST');
     res.status(405).end('Method Not Allowed');
   }
-};
-
+}

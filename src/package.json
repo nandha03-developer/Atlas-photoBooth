@@ -95,6 +95,7 @@
     "@types/jsonwebtoken": "^9.0.7",
     "@types/node": "^20.14.9",
     "@types/react": "^18.3.3",
+    "@types/aws-sdk": "^2.7.0",
     "eslint": "^8.0.0",
     "typescript": "^5.5.2"
   }
